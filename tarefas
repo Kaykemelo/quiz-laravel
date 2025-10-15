@@ -1,0 +1,43 @@
+namespace App\Http\Controllers;
+
+use App\Models\Question;
+use App\Services\QuestionService;
+use App\Http\Requests\Question\CreateRequest;
+
+class QuestionController extends Controller
+{
+
+    protected $service;
+
+    public function __construct(QuestionService $service)
+    {
+        $this->service = $service;
+    }
+
+
+    public function list()
+    {
+        dd($this->service->list());
+
+        //return view('', compact('Questions')); 
+    }
+
+    public function create(CreateRequest $request) 
+    {
+        dd('teste');
+
+        //$data = $request->validated();
+
+        $payload = [
+            'description' => '10 Kayke vacilão?',
+            'status' => 1
+        ];
+
+        dd($payload);
+
+        dd($this->service->create($payload));  
+    }
+    
+
+    
+}
