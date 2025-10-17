@@ -21,7 +21,7 @@ class QuestionService
     
     public function edit(Question $question)
     {
-      return $question->load('alternatives');
+      return Question::with('alternatives')->find($question->id);
     }
 
     public function update(Question $question, $data)

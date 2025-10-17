@@ -63,8 +63,9 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-    
+        
         $question = $this->service->edit($question);
+        
         dd($question);
         //return view('', compact('question'));
     }
