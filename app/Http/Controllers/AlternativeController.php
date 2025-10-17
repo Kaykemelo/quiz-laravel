@@ -23,7 +23,10 @@ class AlternativeController extends Controller
      */
     public function index()
     {
-        //
+        $alternatives = $this->service->list();
+        dd($alternatives);  
+
+        //return view('', compact('alternatives'));
     }
 
     /**

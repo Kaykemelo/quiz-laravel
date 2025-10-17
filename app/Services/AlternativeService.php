@@ -7,6 +7,11 @@ use App\Models\Alternative;
 class AlternativeService 
 {
 
+    public function list()
+    {
+        return Alternative::all();
+    }
+
     public function create($data)
     {
        return Alternative::create($data);

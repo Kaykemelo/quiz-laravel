@@ -24,3 +24,5 @@ Route::get('/teste-perguntas', [QuestionController::class, 'index']);
 Route::get('/pergunta/{question}/edit', [QuestionController::class, 'edit']);
 
 Route::get('/alternativa/{alternative}/edit', [AlternativeController::class, 'edit']);
+
+Route::get('/alternativas',[AlternativeController::class, 'index']);
