@@ -25,8 +25,8 @@ class QuestionController extends Controller
     public function index()
     {
        $Questions = $this->service->list();
-        dd($Questions);
-       //return view('', compact('Questions'));
+        
+       return view('quiz.quiz', compact('Questions'));
     }
 
     /**
