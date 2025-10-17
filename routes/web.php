@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlternativeController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teste-perguntas', [QuestionController::class, 'list']);
-Route::get('/pergunta/novo', [QuestionController::class, 'create']);
+Route::get('/teste-perguntas', [QuestionController::class, 'index']);
+
+Route::get('/pergunta/{question}/edit', [QuestionController::class, 'edit']);
+
+Route::get('/alternativa/{alternative}/edit', [AlternativeController::class, 'edit']);

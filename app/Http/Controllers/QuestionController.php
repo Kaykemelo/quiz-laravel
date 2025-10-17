@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Question\CreateRequest;
+use App\Http\Requests\Question\UpdateRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Services\QuestionService;
+use Illuminate\Auth\Events\Validated;
 
 class QuestionController extends Controller
 {
@@ -21,7 +24,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        dd($this->service->list());
+       $Questions = $this->service->list();
+        dd($Questions);
+       //return view('', compact('Questions'));
     }
 
     /**
@@ -29,26 +34,20 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        dd('teste');
-
-        //$data = $request->validated();
-
-        $payload = [
-            'description' => '10 Kayke vacilão?',
-            'status' => 1
-        ];
-
-        dd($payload);
-
-        dd($this->service->create($payload));
+       // return view('');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        $payload = $request->Validated();
+
+        dd($payload);
+        $this->service->create($payload);
+
+        //return back()->with('success', 'Pergunta criada com sucesso!');
     }
 
     /**
@@ -56,7 +55,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        dd($question);
+        //dd($question);
     }
 
     /**
@@ -64,15 +63,22 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
+    
+        $question = $this->service->edit($question);
         dd($question);
+        //return view('', compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
+    public function update(UpdateRequest $request, Question $question)
     {
-        dd($question->update($request->validated()));
+        $data = $request->validated();
+        dd($data);
+        $this->service->update($question , $data);
+
+        //return back()->with('success', 'Pergunta alterada com sucesso!');
     }
 
     /**
@@ -80,6 +86,9 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //dd($this->service->delete());
+        dd($question);
+        $this->service->delete($question);
+
+        //return back()->with('sucess', 'Pergunta excluida com sucesso!');
     }
 }

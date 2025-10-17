@@ -11,26 +11,22 @@ class QuestionService
 
     public function list()
     {
-      return Question::all();
+      return Question::with('alternatives')->get();
     }
 
     public function create($payload)
     {
-      
-      dd($payload);
-
-      
-      
-      return Question::create(); 
+      return Question::create($payload); 
     }
-                                                    
-    public function update(UpdateRequest $request , Question $question)
+    
+    public function edit(Question $question)
     {
-       $data = $request->validated();
+      return $question->load('alternatives');
+    }
 
+    public function update(Question $question, $data)
+    {
        return $question->update($data);
-
-
     }
 
     public function delete(Question $question)
