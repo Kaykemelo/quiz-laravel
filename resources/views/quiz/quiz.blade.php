@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
     <link rel="stylesheet" href="{{ asset('css/quiz.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
      {{-- dd($Questions); --}} 
@@ -24,8 +27,9 @@
                      <p class="question">{{$question->description}}</p> 
 
                         @foreach ($question->alternatives as $alternatives )   
-                            <label><input type="radio" name="Resposta {{$alternatives->question_id}}" value="{{$alternatives->id}}">{{$alternatives->description}}</label>
+                            <label class="alternative"><input type="radio" name="Resposta {{$alternatives->question_id}}" value="{{$alternatives->id}}">{{$alternatives->description}}</label>
                         @endforeach 
+                        <hr>
                      
                 @endforeach
 
