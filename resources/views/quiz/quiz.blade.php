@@ -19,7 +19,7 @@
 
         <div class="quiz-container">
             <h1 class="title">Quiz</h1>
-            <h2 class="subtitle"></h2>
+            <h2 class="subtitle">Responda nosso Quiz e teste seu conhecimento sobre a nossa marca!</h2>
 
             <form action="" method="post"> 
 
@@ -27,17 +27,16 @@
                      <p class="question">{{$question->description}}</p> 
 
                         @foreach ($question->alternatives as $alternatives )   
-                            <label class="alternative"><input type="radio" name="Resposta {{$alternatives->question_id}}" value="{{$alternatives->id}}">{{$alternatives->description}}</label>
+                            <label class="alternative"><input type="radio" name="Resposta[{{$alternatives->question_id}}]" value="{{$alternatives->id}}">{{$alternatives->description}}</label>
                         @endforeach 
                         <hr>
                      
                 @endforeach
 
+                <div class="botao">
+                    <button type="submit" class="botao-enviar">Enviar</button>
+                </div>
             </form>
-
-            <div class="botao">
-                <button type="submit" class="botao-enviar">Enviar</button>
-            </div>
 
         </div>
 
