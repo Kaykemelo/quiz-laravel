@@ -11,7 +11,7 @@ class Alternative extends Model
 {
     use HasFactory;
 
-    public function questions() : BelongsTo
+    public function question() : BelongsTo
     {
         return $this->belongsTo(Question::class);
     }

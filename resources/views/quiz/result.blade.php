@@ -22,7 +22,16 @@
 
             <form action="result.blade.php" method="post"> 
                 @csrf
-               {{--dd($Answers);--}}
+               @foreach ($Questions as $question )
+                   <p class="question">{{$question->description}}</p> 
+
+                    @foreach ($question->alternatives as $alternative )
+                        {{dd($alternative);}}
+                        
+                       
+                    @endforeach
+                    <hr>
+               @endforeach
 
                 <div class="botao">
                     <button type="submit" class="botao-enviar">Enviar</button>
