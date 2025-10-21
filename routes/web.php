@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlternativeController;
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,7 @@ Route::get('/alternativa/{alternative}/edit', [AlternativeController::class, 'ed
 Route::get('/alternativas',[AlternativeController::class, 'index']);
 
 Route::get('/quiz',[QuestionController::class, 'index']);
+
+Route::post('/quiz/resultado',[AnswerController::class, 'store'])->name('quiz.result');
+
+Route::get('/quiz/resultado',[AnswerController::class, 'index'])->name('quiz.result.page');
