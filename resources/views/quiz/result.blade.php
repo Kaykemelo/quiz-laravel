@@ -43,7 +43,7 @@
                         @endif  
 
                            <label class="alternative">
-                                <input type="radio" name="Resposta[{{$alternative->question_id}}]" value="{{$alternative->id}}">
+                              
                                 <span style="color: {{ $color }}">{{ $alternative->description }}</span>
                             </label>
 
@@ -52,7 +52,7 @@
                @endforeach
 
                 <div class="botao">
-                    <button type="submit" class="botao-enviar">Enviar</button>
+                    <a href="{{Route('quiz')}}" class="botao-voltar">Novo Quiz</a>
                 </div>
             </form>
 

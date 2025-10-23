@@ -29,7 +29,7 @@ Route::get('/alternativa/{alternative}/edit', [AlternativeController::class, 'ed
 
 Route::get('/alternativas',[AlternativeController::class, 'index']);
 
-Route::get('/quiz',[QuestionController::class, 'index']);
+Route::get('/quiz',[QuestionController::class, 'index'])->name('quiz');
 
 Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
 
