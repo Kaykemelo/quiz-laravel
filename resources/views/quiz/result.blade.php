@@ -18,7 +18,7 @@
 
         <div class="quiz-container">
             <h1 class="title">Quiz</h1>
-            <h2 class="subtitle">Responda nosso Quiz e teste seu conhecimento sobre a nossa marca!</h2>
+            <h2 class="subtitle">Confira o resultado de acertos do quiz!</h2>
 
             <form action="result.blade.php" method="post"> 
                 @csrf
@@ -26,9 +26,27 @@
                    <p class="question">{{$question->description}}</p> 
 
                     @foreach ($question->alternatives as $alternative )
-                        {{dd($alternative);}}
-                        
                        
+                        @if($alternative->answers->isNotEmpty())
+
+                            @if($alternative->answers->first()->alternative_id == $alternative->id)
+                                @php 
+                                $color = $alternative->correct == 1 ? 'green' : 'red';
+                                @endphp
+                            @endif     
+
+                        @else 
+                            @php
+                            $color = 'black';
+                            @endphp 
+
+                        @endif  
+
+                           <label class="alternative">
+                                <input type="radio" name="Resposta[{{$alternative->question_id}}]" value="{{$alternative->id}}">
+                                <span style="color: {{ $color }}">{{ $alternative->description }}</span>
+                            </label>
+
                     @endforeach
                     <hr>
                @endforeach

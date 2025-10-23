@@ -30,6 +30,6 @@ class ResultController extends Controller
         $this->service->create($answers);
 
 
-        return redirect()->route('quiz.result.page');
+        return redirect()->route('quiz.result.page', ['executionid' => 1]);
     }
 }
