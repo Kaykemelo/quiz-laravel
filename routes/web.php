@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\AlternativeController;
-use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResultController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teste-perguntas', [QuestionController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/pergunta/{question}/edit', [QuestionController::class, 'edit']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/alternativa/{alternative}/edit', [AlternativeController::class, 'edit']);
+require __DIR__.'/auth.php';
 
-Route::get('/alternativas',[AlternativeController::class, 'index']);
-
-Route::get('/quiz',[QuestionController::class, 'index'])->name('quiz');
-
+Route::get('/quiz',[QuestionController::class, 'index']);
 Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
-
 Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
