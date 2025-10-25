@@ -1,0 +1,22 @@
+criação da estrutura do quiz 
+
+
+Migration 
+- criar nova migration pro quiz pra estruturar a tabela   ------- ok 
+(id,description,status,timestamps)  
+
+Model 
+- criar uma nova model pro Quiz pra lidar com os dados do modelo quiz no banco  ------ ok 
+- criar os relacionamentos do quiz com os outros modelos (perguntas)  , onde cada quiz pode ter varias perguntas (HasMany - One to Many ) ------ ok 
+
+Requests
+Quiz / CreateRequest  
+- criar um novo request pro quiz pra fazer a validações dos campos  -------- ok 
+
+Controller 
+- criar uma controller pro quiz (QuizController) pra organizar o fluxo ------- ok 
+
+Service 
+- criar uma service pro quiz (QuizService) pra fazer a logica pra cada operação ------- ok  
+ 
+
