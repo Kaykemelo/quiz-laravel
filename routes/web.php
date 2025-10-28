@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
@@ -20,9 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/quiz',[QuestionController::class, 'index']);
+Route::get('/quiz/{quizid}',[QuestionController::class, 'index'])->name('quiz');
 Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
 Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
+

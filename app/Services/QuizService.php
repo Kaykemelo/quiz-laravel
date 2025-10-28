@@ -8,7 +8,7 @@ class QuizService
 {
     public function list() 
     {
-        return Quiz::with('questions')->get();
+        return Quiz::all();
     }
 
    
