@@ -4,26 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\QuizService;
+use App\Http\Requests\Execution\CreateRequest;
 
 class QuizController extends Controller
 {
-
-    protected $service;
-
-    public function __construct(QuizService $service)
-    {
-        $this->service = $service;
-    }
-
+    public function __construct(
+        protected QuizService $service
+    ){}
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CreateRequest $request, $quiz_id)
     {
-        $aQuiz = $this->service->list();
+        $request->merge(['quiz_id' => $quiz_id]);
+        
+        $execution_id = $this->service->createExecution($request->all())->id;
 
-        return view('dashboard', compact('aQuiz'));
+        $quiz = $this->service->list($quiz_id);
+
+        return view('quiz.create', [
+            'quiz' => $quiz,
+            'execution_id' => $execution_id 
+        ]);
     }
 
     /**

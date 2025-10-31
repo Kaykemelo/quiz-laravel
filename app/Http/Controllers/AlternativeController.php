@@ -10,12 +10,10 @@ use Illuminate\Http\Request;
 
 class AlternativeController extends Controller
 {
-    protected $service;
 
-    public function __construct(AlternativeService $service)
-    {
-        $this->service = $service;
-    }
+    public function __construct(
+       protected AlternativeService $service
+    ){}
 
 
     /**

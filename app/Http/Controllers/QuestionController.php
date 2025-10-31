@@ -2,36 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Question\CreateRequest;
-use App\Http\Requests\Question\UpdateRequest;
 use App\Models\Question;
-use Illuminate\Http\Request;
-use App\Services\QuestionService;
 use App\Services\QuizService;
+use App\Services\QuestionService;
 use Illuminate\Auth\Events\Validated;
+use App\Http\Requests\Question\UpdateRequest;
+use App\Http\Requests\Execution\CreateRequest;
 
 class QuestionController extends Controller
 {
 
-    protected $service;
 
-    public function __construct(QuestionService $service, protected QuizService $quizService)
-    {
-        $this->service = $service;
-    }
+    public function __construct( 
+        protected QuestionService $service, 
+    ){}
     
     /**
      * Display a listing of the resource.
      */
-    public function index($quizId)
+    public function index()
     {
-       $userId = auth()->id();
-
-       $this->quizService->createExecution($userId,$quizId);
-
-       $Questions = $this->service->list();
-        
-       return view('quiz.quiz', compact('Questions'));
+       //
     }
 
     /**

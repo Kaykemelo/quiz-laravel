@@ -8,25 +8,23 @@ use Illuminate\Http\Request;
 
 class ResultController extends Controller
 {
-    protected $service;
 
-    public function __construct(ResultService $service)
-    {
-        $this->service = $service;
-    }
+    public function __construct(
+       protected ResultService $service
+    ){}
 
     public function index($executionid)
     {
         
         $Questions = $this->service->list($executionid);
-
+        
         return view('quiz/result', compact('Questions'));
     }
 
     public function store(CreateRequest $request)
     {
         $answers = $request->validated();
-        
+        dd($answers);
         $this->service->create($answers);
 
 

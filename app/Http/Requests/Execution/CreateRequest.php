@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Answer;
+namespace App\Http\Requests\Execution;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,6 +14,13 @@ class CreateRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => auth()->id(),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,9 +29,6 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'execution_id' => 'required|integer',
-            'Resposta' => 'required|array',
-            'Resposta.*' => 'required|integer|exists:alternatives,id'
         ];
     }
 }

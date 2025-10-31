@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\QuizService;
+use App\Services\DashboardService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    protected $service;
 
-    public function __construct(QuizService $service)
-    {
-        $this->service = $service;
-    }
+    public function __construct( 
+        protected DashboardService $service
+    ){}
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $aQuiz = $this->service->list();
+        $dashboards = $this->service->list();
 
-        return view('dashboard', compact('aQuiz'));
+        return view('dashboard', ['dashboards' => $dashboards]);
     }
 
     /**
