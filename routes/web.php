@@ -33,6 +33,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/quiz/{quizId}',[QuizController::class, 'index'])->name('quiz');
-Route::post('/quiz/resultado/execucao',[ResultController::class, 'store'])->name('quiz.result');
+Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
 Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
 

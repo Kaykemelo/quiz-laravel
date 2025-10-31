@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Answer;
 use App\Models\Question;
+use App\Models\Execution;
 
 class ResultService 
 {
@@ -18,19 +19,25 @@ class ResultService
          
     }
 
+    public function createExecution($executionRequest)
+    {
+        return Execution::create($executionRequest);
+    }
+
+
     public function create($answers)
     {
-        $userid = 1;
-        $executionid = 1;
-
-        foreach ($answers['Resposta'] as $answer) {
+        
+        foreach ($answers['Answer'] as $answer) {
+          
             Answer::create([
-                'user_id' => $userid,
-                'execution_id' => $executionid,
+                'user_id' => auth()->id(),
+                'execution_id' => $answers['execution_id'],
                 'alternative_id' => $answer
             ]);
         }
 
         return true;
     }
+
 }

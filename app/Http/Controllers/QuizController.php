@@ -15,17 +15,12 @@ class QuizController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(CreateRequest $request, $quiz_id)
+    public function index( $quiz_id)
     {
-        $request->merge(['quiz_id' => $quiz_id]);
-        
-        $execution_id = $this->service->createExecution($request->all())->id;
-
         $quiz = $this->service->list($quiz_id);
 
         return view('quiz.create', [
-            'quiz' => $quiz,
-            'execution_id' => $execution_id 
+            'quiz' => $quiz
         ]);
     }
 
