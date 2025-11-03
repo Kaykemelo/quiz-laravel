@@ -1,69 +1,47 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado - Quiz</title>
-    <link rel="stylesheet" href="{{ asset('css/result.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<x-app-layout>
+     <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Resultado do Quiz
+        </h2>
+    </x-slot>
 
-</head>
-<body>
-    <header>
-     
-    </header>
 
-    <main class="box">
+    <div class="py-12">
+        <div class="back max-w-lg mx-auto sm:px-6 lg:px-8 bg-white rounded lg h-auto p-8 shadow">
+                @foreach ($questions as $question )
+                    <p class="font-sans font-medium text-gray-800 text-base mb-2">
+                        {{ $question->description }}
+                    </p>
+                    @foreach ($question->alternatives as $alternative) 
+                        @php 
+                            $bold = '';
+                            $color = 'text-gray-800';
+                        @endphp 
 
-        <div class="quiz-container">
-            <h1 class="title">Quiz</h1>
-            <h2 class="subtitle">Confira o resultado de acertos do quiz!</h2>
+                        @if ($alternative->answers->isNotEmpty())
 
-            <form action="result.blade.php" method="post"> 
-                @csrf
-               @foreach ($Questions as $question )
-                   <p class="question">{{$question->description}}</p> 
-
-                    @foreach ($question->alternatives as $alternative )
-                       
-                        @if($alternative->answers->isNotEmpty())
-
-                            @if($alternative->answers->first()->alternative_id == $alternative->id)
+                            @if ($alternative->answers->first()->alternative_id == $alternative->id) 
                                 @php 
-                                $color = $alternative->correct == 1 ? 'green' : 'red';
+                                    $color = $alternative->correct == 1 ? 'text-green-500' : 'text-red-500';
+                                    $bold = 'font-bold';
                                 @endphp
-                            @endif     
-
-                        @else 
-                            @php
-                            $color = 'black';
-                            @endphp 
-
-                        @endif  
-
-                           <label class="alternative">
                               
-                                <span style="color: {{ $color }}">{{ $alternative->description }}</span>
+                            @endif 
+
+                        @endif 
+                       
+                            <label class="flex items-center gap-1 text-[13px] {{ $color }} {{ $bold }} mb-1 ml-4 ">
+                                <span>{{ $alternative->description }}</span>
                             </label>
 
                     @endforeach
-                    <hr>
-               @endforeach
+                    <hr class="mx-auto my-6 w-[85%] border border-gray-300 mb-6"> 
 
-                <div class="botao">
-                    <a href="{{Route('quiz')}}" class="botao-voltar">Novo Quiz</a>
+                @endforeach
+
+                <div class="flex justify-center items-center">
+                    <a href="{{route('dashboard') }}"  class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-neutral-800 transition duration-200 ease-linear">Novo Quiz</a>
                 </div>
-            </form>
-
         </div>
-
-    </main>
-
-    <footer>
-        <p>&copy; - Feito por Kayke Melo - 2025</p>
-    </footer>
-
-</body>
-</html>
-
+    </div>
+</x-app-layout>

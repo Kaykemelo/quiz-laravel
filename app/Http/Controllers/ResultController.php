@@ -17,9 +17,9 @@ class ResultController extends Controller
     public function index($executionid)
     {
         
-        $Questions = $this->service->list($executionid);
-        dd($Questions);
-        return view('quiz/result', compact('Questions'));
+        $questions = $this->service->list($executionid);
+
+        return view('quiz/result', ['questions' => $questions]);
     }
 
     public function store(AnswerCreateRequest $request , ExecutionCreateRequest $executionRequest)
