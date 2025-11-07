@@ -39,8 +39,9 @@
 
                 @endforeach
 
-                <div class="flex justify-center items-center">
+                <div class="flex justify-between items-center">
                     <a href="{{route('dashboard') }}"  class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-neutral-800 transition duration-200 ease-linear">Novo Quiz</a>
+                    <a href="{{route('quiz', [ $question->quiz_id ])}}" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-neutral-800 transition duration-200 ease-linear">Refazer</a>
                 </div>
         </div>
     </div>

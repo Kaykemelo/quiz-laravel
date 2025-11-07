@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\RankingController;
 use App\Http\Controllers\ResultController;
 
 /*
@@ -35,4 +36,5 @@ require __DIR__.'/auth.php';
 Route::get('/quiz/{quizId}',[QuizController::class, 'index'])->name('quiz');
 Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
 Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
+Route::get('/ranking' , [RankingController::class, 'index'])->name('ranking');
 
