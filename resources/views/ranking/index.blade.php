@@ -13,20 +13,20 @@
            </div>
 
             <div class="overflow-x-auto w-full">
-                <table class="w-full border-collapse border border-gray-800">
+                <table class="w-full text-left bg-white shadow-md border rounded-lg">
                     <thead>
-                        <tr class="bg-gray-200">
-                            <th class="border border-gray-800 px-4 py-2 text-center bg-gray-100">Nome</th>
-                            <th class="border border-gray-800 px-4 py-2 text-center bg-gray-100">Data da Execução</th>
-                            <th class="border border-gray-800 px-4 py-2 text-center bg-gray-100">Pontuação</th>
+                        <tr class="bg-gray-100 border b border-gray-300">
+                            <th class="px-4 py-3 font-semibold  text-gray-700">Nome</th>
+                            <th class="px-4 py-3 font-semibold  text-gray-700">Data da Execução</th>
+                            <th class="px-4 py-3 font-semibold  text-gray-700">Pontuação</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($rankings as $ranking )
-                            <tr class="bg-gray-200">
-                                <td class="border border-gray-300 px-4 py-2 break-words">{{$ranking->Nome}}</td>
-                                <td class="border border-gray-300 px-4 py-2 break-words">{{$ranking->Data_Execucao}}</td>
-                                <td class="border border-gray-300 px-4 py-2 break-words">{{$ranking->Pontuacao}}</td>
+                            <tr class="border b hover:bg-gray-50 transition">
+                                <td class="px-4 py-2">{{$ranking->Nome}}</td>
+                                <td class="px-4 py-2">{{$ranking->Data_Execucao}}</td>
+                                <td class="px-4 py-2">{{$ranking->Pontuacao}}</td>
                             </tr>
                         @endforeach
                     </tbody>
