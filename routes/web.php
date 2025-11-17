@@ -37,4 +37,6 @@ Route::get('/quiz/{quizId}',[QuizController::class, 'index'])->name('quiz');
 Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
 Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
 Route::get('/ranking' , [RankingController::class, 'index'])->name('ranking');
+Route::get('/admin/quiz/create', [QuizController::class, 'create']);
+Route::post('/admin/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
 

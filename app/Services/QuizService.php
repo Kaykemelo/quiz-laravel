@@ -13,6 +13,9 @@ class QuizService
         return Quiz::with('questions.alternatives')->find($quiz_id);
     }
 
-   
+    public function create($data)
+    {
+        return Quiz::create($data);
+    }
    
 }

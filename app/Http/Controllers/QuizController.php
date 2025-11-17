@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\QuizService;
 use App\Http\Requests\Execution\CreateRequest;
+use App\Http\Requests\Quiz\CreateRequest as QuizCreateRequest;
+use PhpParser\Node\Stmt\TryCatch;
 
 class QuizController extends Controller
 {
@@ -29,15 +31,25 @@ class QuizController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.quiz.index');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(QuizCreateRequest $request)
     {
-        //
+       try {
+            $data = $request->validated();
+
+            $this->service->create($data);
+
+            return back()->with('success', 'Quiz cadastrado com sucesso.');
+       } catch (\Exception $e) {
+            return back()->with('error', 'Erro ao cadastrar.');
+       }
+
+        
     }
 
     /**
