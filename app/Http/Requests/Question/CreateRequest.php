@@ -22,6 +22,9 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
+
+            'quiz_id' => 'required|integer',
+            
             'description' => 'required|array',
             'description.*' => 'required|string|max:255',
 

@@ -32,7 +32,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $aQuiz = Quiz::where('status', 1)->get();
+        $aQuiz = Quiz::with('questions')->where('status', 1)->get();
 
         return view('admin.questions.index', ['aQuiz' => $aQuiz]);
     }
@@ -43,10 +43,14 @@ class QuestionController extends Controller
     public function store(CreateRequest $request)
     {
         try {
-            dd($_POST);
+           
+            $aData = $request->validated();
+
+            $this->service->store($aData);
             
-        } catch (\Throwable $th) {
-            //throw $th;
+            return back()->with('success', 'Perguntas criadas com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erro ao Cadastrar');
         }
     }
 

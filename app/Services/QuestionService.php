@@ -8,15 +8,24 @@ use App\Models\Question;
 
 class QuestionService 
 {
-
     public function list()
     {
       return Question::with('alternatives')->get();
     }
 
-    public function create($data)
+    public function store($aData)
     {
-      return Question::create($data); 
+      
+        foreach ($aData['description'] as  $key => $description) 
+        {
+          Question::create([
+            'description' => $description,
+            'status' => $aData['status'][$key],
+            'quiz_id' => $aData['quiz_id']
+          ]);
+        }
+
+        return true;
     }
     
     public function edit(Question $question)
