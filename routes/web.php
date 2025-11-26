@@ -39,4 +39,6 @@ Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->
 Route::get('/ranking' , [RankingController::class, 'index'])->name('ranking');
 Route::get('/admin/quiz/create', [QuizController::class, 'create']);
 Route::post('/admin/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::get('/admin/questions/create', [QuestionController::class,'create']);
+Route::post('/admin/questions/store', [QuestionController::class, 'store'])->name('question.store');
 

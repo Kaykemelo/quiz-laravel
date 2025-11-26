@@ -14,9 +14,9 @@ class QuestionService
       return Question::with('alternatives')->get();
     }
 
-    public function create($payload)
+    public function create($data)
     {
-      return Question::create($payload); 
+      return Question::create($data); 
     }
     
     public function edit(Question $question)

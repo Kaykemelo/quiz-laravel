@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Question\CreateRequest;
 use App\Models\Question;
 use App\Services\QuizService;
 use App\Services\QuestionService;
 use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\Question\UpdateRequest;
-use App\Http\Requests\Execution\CreateRequest;
+
+use App\Models\Quiz;
 
 class QuestionController extends Controller
 {
@@ -30,7 +32,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-       // return view('');
+        $aQuiz = Quiz::where('status', 1)->get();
+
+        return view('admin.questions.index', ['aQuiz' => $aQuiz]);
     }
 
     /**
@@ -38,12 +42,12 @@ class QuestionController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $payload = $request->Validated();
-
-        dd($payload);
-        $this->service->create($payload);
-
-        //return back()->with('success', 'Pergunta criada com sucesso!');
+        try {
+            dd($_POST);
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
