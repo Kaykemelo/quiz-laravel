@@ -41,4 +41,6 @@ Route::get('/admin/quiz/create', [QuizController::class, 'create']);
 Route::post('/admin/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
 Route::get('/admin/questions/create', [QuestionController::class,'create']);
 Route::post('/admin/questions/store', [QuestionController::class, 'store'])->name('question.store');
+Route::get('/admin/questions/edit/{question}', [QuestionController::class, 'edit'])->name('question.edit');
+Route::put('/admin/questions/update/{question}' , [QuestionController::class, 'update'])->name('question.update');
 

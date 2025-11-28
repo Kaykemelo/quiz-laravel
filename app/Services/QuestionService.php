@@ -30,12 +30,12 @@ class QuestionService
     
     public function edit(Question $question)
     {
-      return Question::with('alternatives')->find($question->id);
+      return Question::find($question->id);
     }
 
     public function update(Question $question, $data)
     {
-       return $question->update($data);
+      return $question->update($data);
     }
 
     public function delete(Question $question)

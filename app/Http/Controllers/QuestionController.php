@@ -67,11 +67,13 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
+        $aQuiz = Quiz::with('questions')->where('status', 1)->get();    
+
+        $aQuestions = $this->service->edit($question);
         
-        $question = $this->service->edit($question);
-        
-        dd($question);
-        //return view('', compact('question'));
+        return view('admin.questions.index', [
+            'aQuestions' => $aQuestions,
+            'aQuiz' => $aQuiz ]);
     }
 
     /**
@@ -79,11 +81,16 @@ class QuestionController extends Controller
      */
     public function update(UpdateRequest $request, Question $question)
     {
-        $data = $request->validated();
-        dd($data);
-        $this->service->update($question , $data);
+         try {
+            $data = $request->validated();
 
-        //return back()->with('success', 'Pergunta alterada com sucesso!');
+            $this->service->update($question , $data);
+
+            return back()->with('success_update', 'Pergunta atualizada com sucesso.');
+         } catch (\Exception $e) {
+            return back()->with('error_update', 'Erro ao atualizar');
+         }
+    
     }
 
     /**
