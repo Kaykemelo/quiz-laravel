@@ -99,11 +99,20 @@
                 </div>
           </div>
     </template>
+
     
 
     <div class="py-12">
+        <div class="py-2 text-center">
+                 @if (session('success_update') || session('error_update'))
+                        <p class="text-sm {{ session('success_update') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }} font-medium mb-4">
+                            {{ session('success_update') ?? session('error_update') }}
+                        </p>
+                @endif         
+        </div>
+
         <div class="flex justify-center">
-            <div class="relative w-[900px] max-h-[600px] overflow-auto bg-white rounded-xl">
+            <div class="relative w-[1000px] max-h-[600px] overflow-auto bg-white rounded-xl">
                 <table class="w-full text-left table-auto min-w-max">
                      <thead>
                         <tr>
@@ -122,7 +131,7 @@
                                     Status
                                 </p>
                             </th>
-                            <th class="p-4 text-center bg-gray-800 text-white font-semibold text-sm  border-b" colspan="2">
+                            <th class="p-4 text-center bg-gray-800 text-white font-semibold text-sm  border-b" colspan="3">
                                 <p class="font-sans text-sm antialiased font-normal">
                                     Ações
                                 </p>
@@ -144,11 +153,18 @@
                                         </td>
                                         <td class="p-4 border-b border-blue-gray-50">
                                             <div class="flex justify-between gap-2">
-                                            <a href="#" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                            <a href="#" class=" font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                                 Nova Alternativa
                                             </a>
-                                            <a href="{{ route('question.edit', $question->id) }}" class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                                Editar
+                                            <button class="btn-open-modal  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"
+                                                data-id="{{ $question->id }}"
+                                                data-description="{{ $question->description }}"
+                                                data-status="{{$question->status}}"
+                                                data-quiz_id="{{ $question->quiz_id }}">
+                                                    Editar
+                                            </button>
+                                              <a href="#" class=" font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                                Excluir
                                             </a>
                                             </div>
                                         </td>
@@ -163,41 +179,37 @@
     </div>
 
 
-    <div id="modal" class=" {{ isset($aQuestions) && isset($aQuiz) ? '' : 'hidden' }} fixed inset-0 flex items-center justify-center">
+    <div id="modal" class="hidden fixed inset-0 flex items-center justify-center">
         <div class="absolute inset-0 bg-black opacity-50"></div>
 
-        <div class="bg-white rounded-lg shadow-lg z-10 w-[400px] p-6">
+        <div class="bg-white rounded-lg shadow-lg z-10 w-[800px] min-w-[400px] max-w-full p-6">
             <h2 class="text-lg font-semibold mb-4">
                 Editar Pergunta
             </h2>
-                            @if (session('success_update') || session('error_update'))
-                                <p class="text-sm {{ session('success_update') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }} font-medium mb-4">
-                                    {{ session('success_update') ?? session('error_update') }}
-                                </p>
-                            @endif
-            <form action="{{route('question.update', $aQuestions->id ?? '') }}" method="post">
+            
+            <form id="formEditQuestion" action="{{route('question.update',['question' => 0]) }}" method="post">
                 @csrf 
                 @method('PUT')
 
-                <input type="hidden" name="quiz_id" value="{{$aQuestions->quiz_id ?? ''}}">
+                <input type="hidden" name="quiz_id" id="modal-quiz-id">
 
                 <div class="mt-2">
                     <x-input-label for="description" :value="__('Descrição da Pergunta:')" />
-                    <x-text-input name="description" type="text" class="mt-1 block w-full" required autocomplete="description" value="{{$aQuestions->description ?? ''}}"/>
+                    <x-text-input id="modal-description" name="description" type="text" class="mt-1 block w-full" required autocomplete="description" />
                     <x-input-error class="mt-2" :messages="$errors->get('description')" />
                 </div>
                 <div class="mt-2">
                     <x-input-label for="status" :value="__('Status:')" />
-                    <select name="status" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+                    <select name="status" id="modal-status" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
                                 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600
                                 rounded-md shadow-sm" required autocomplete="status">
-                                    <option value="1" {{ ($aQuestions->status ?? null) == 1  ? 'selected' : ''}} >Ativa</option>
-                                    <option value="0" {{ ($aQuestions->status ?? null) == 0  ? 'selected' : '' }}>Inativa</option>
+                                    <option value="1">Ativa</option>
+                                    <option value="0">Inativa</option>
                     </select>
                 </div>    
 
                     <div class="mt-4 flex justify-end gap-2">
-                        <a href="/admin/questions/create" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-400">Cancelar</a>
+                        <button  type="button" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-400" onclick="window.location.href='/admin/questions/create'">Cancelar</button>
                         <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Salvar</button>
                     </div>
             </form>

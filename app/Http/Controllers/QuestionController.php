@@ -67,13 +67,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        $aQuiz = Quiz::with('questions')->where('status', 1)->get();    
-
-        $aQuestions = $this->service->edit($question);
-        
-        return view('admin.questions.index', [
-            'aQuestions' => $aQuestions,
-            'aQuiz' => $aQuiz ]);
+       //
     }
 
     /**
