@@ -33,13 +33,22 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/quiz/{quizId}',[QuizController::class, 'index'])->name('quiz');
-Route::post('/quiz/resultado',[ResultController::class, 'store'])->name('quiz.result');
-Route::get('/quiz/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
+
+Route::prefix('/quiz')->group( function () {
+    Route::get('/{quizId}',[QuizController::class, 'index'])->name('quiz');
+    Route::post('/resultado',[ResultController::class, 'store'])->name('quiz.result');
+    Route::get('/resultado/{executionid}',[ResultController::class, 'index'])->name('quiz.result.page');
+});
+
+
 Route::get('/ranking' , [RankingController::class, 'index'])->name('ranking');
 Route::get('/admin/quiz/create', [QuizController::class, 'create']);
 Route::post('/admin/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
-Route::get('/admin/questions/create', [QuestionController::class,'create']);
-Route::post('/admin/questions/store', [QuestionController::class, 'store'])->name('question.store');
-Route::put('/admin/questions/update/{question}' , [QuestionController::class, 'update'])->name('question.update');
 
+
+Route::prefix('admin/questions')->group( function () {
+   Route::get('/create', [QuestionController::class,'create']);
+   Route::post('/store', [QuestionController::class, 'store'])->name('question.store'); 
+   Route::put('/update/{question}' , [QuestionController::class, 'update'])->name('question.update');
+   Route::delete('/delete/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+});

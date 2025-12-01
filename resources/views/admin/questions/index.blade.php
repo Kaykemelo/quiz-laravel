@@ -108,7 +108,12 @@
                         <p class="text-sm {{ session('success_update') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }} font-medium mb-4">
                             {{ session('success_update') ?? session('error_update') }}
                         </p>
-                @endif         
+                @endif  
+                 @if (session('success_delete') || session('error_delete'))
+                        <p class="text-sm {{ session('success_delete') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }} font-medium mb-4">
+                            {{ session('success_delete') ?? session('error_delete') }}
+                        </p>
+                @endif        
         </div>
 
         <div class="flex justify-center">
@@ -163,9 +168,14 @@
                                                 data-quiz_id="{{ $question->quiz_id }}">
                                                     Editar
                                             </button>
-                                              <a href="#" class=" font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                            <form action="{{ route('question.destroy', $question->id) }}" method="post">
+                                                @method('DELETE')
+                                                @csrf 
+
+                                              <button type="submit" class=" font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                                 Excluir
-                                            </a>
+                                              </button>
+                                            </form>
                                             </div>
                                         </td>
                                 

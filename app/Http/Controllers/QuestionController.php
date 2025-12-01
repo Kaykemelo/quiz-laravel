@@ -92,9 +92,12 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        dd($question);
-        $this->service->delete($question);
-
-        //return back()->with('sucess', 'Pergunta excluida com sucesso!');
+       try {
+          $this->service->delete($question);
+          
+          return back()->with('success_delete' , 'Pergunta excluida com sucesso.');
+       } catch (\Exception $e ) {
+            return back()->with('error_delete', 'Erro ao excluir.');
+       }
     }
 }
