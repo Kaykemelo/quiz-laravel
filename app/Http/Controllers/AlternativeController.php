@@ -33,7 +33,7 @@ class AlternativeController extends Controller
      */
     public function create($question)
     {
-        $aQuestion = Question::where('status', 1)->find($question);
+        $aQuestion = Question::with('alternatives')->where('status', 1)->find($question);
 
         return view('admin.alternatives.index', ['aQuestion' => $aQuestion]);
     }
@@ -79,11 +79,15 @@ class AlternativeController extends Controller
      */
     public function update(UpdateRequest $request, Alternative $alternative)
     {
-        $data = $request->validated();
-        dd($data);
-        $this->service->update($alternative , $data);
+       try {
+          $data = $request->validated();
 
-        //return back()->with('sucesss', 'Alternativa alterada com sucesso!');
+          $this->service->update($alternative , $data);
+
+          return back()->with('success_update', 'Alternativa atualizada com sucesso.');
+       } catch (\Exception $e) {
+          return back()->with('error_update', 'Erro ao atualizar.'); 
+       }
 
     }
 

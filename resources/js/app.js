@@ -6,6 +6,8 @@ import './modal';
 
 import './alternatives';
 
+import './modalAlternatives';
+
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;

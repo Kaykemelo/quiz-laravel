@@ -69,16 +69,16 @@
         </div>
 
         <template id="alternative-template">
-             <div class="flex flex-row gap-6 itens-end">
-                    <div class="flex-[3]">
+             <div class="flex flex-row gap-6 items-end">
+                    <div class="w-1/2">
                         <x-input-label for="description" :value="__('Descrição da Alternativa:')" /> 
-                        <x-text-input id="alternatives" name="description[]" type="text" class="mt-1 block " required />
+                        <x-text-input  name="description[]" type="text" class="mt-1 block " required />
                         <x-input-error  class="mt-2" :messages="$errors->get('description')"/>
                     </div>
 
-                    <div class="flex-[1] w-[150px]">
+                    <div class="w-40">
                         <x-input-label for="correção" :value="__('Correção:')" />
-                        <select name="correct[]" id="correção" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+                        <select name="correct[]" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
                         focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600
                         rounded-md shadow-sm" required>
                             <option value="1">Correta</option>
@@ -88,5 +88,120 @@
              </div>
 
         </template>
+    </div>
+
+
+    <div class="py-12">
+
+        <div class="flex justify-center mb-4">
+
+            @if (session('success_update') || session('error_update'))
+                <p class="font-semibold  text-base {{ session('success_update') ? 'text-green-800 dark:text-green-400' : 'text-red-800 dark:text-red-400'}} mb-4 leading-tight">
+                    {{session('success_update') ?? session('error_update')}}
+                </p>
+            @endif
+
+        </div>
+
+        <div class="flex justify-center">
+            <div class="relative w-[1000px] max-h-[600px] overflow-auto bg-white rounded-xl ">
+                <table class="w-full text-left table-auto min-w-max">
+                    <thead>
+                        <tr>
+                            <th class="p-4 bg-gray-800 text-white font-semibold text-sm  border-b">
+                                <p class="font-sans text-sm antialiased font-normal">
+                                    Pergunta
+                                </p>
+                            </th>
+                            <th class="p-4 bg-gray-800 text-white font-semibold text-sm  border-b">
+                                <p class="font-sans text-sm antialiased font-normal">
+                                    Alternativas 
+                                </p>
+                            </th>
+                            <th class="p-4 bg-gray-800 text-center text-white font-semibold text-sm  border-b" colspan="2">
+                                <p class="font-sans text-sm antialiased font-normal">
+                                    Ações
+                                </p>
+                            </th>
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($aQuestion->alternatives as $alternatives )
+                            <tr class="border-b border-blue-gray-50">
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    {{ $aQuestion->description }}
+                                </td>
+        
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    {{ $alternatives->description }}
+                                </td>
+        
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    <div class="flex justify-between">
+                                        <button class="btn-modal  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"
+                                            data-id="{{$alternatives->id}}"
+                                            data-question_id="{{$aQuestion->id}}"
+                                            data-description="{{$alternatives->description}}"
+                                            data-correct="{{$alternatives->correct}}">
+                                                Editar
+                                        </button>
+                                        <button class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                                Excluir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+        <div id="modal-alternatives" class="hidden fixed inset-0 flex items-center justify-center">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+
+            <div class="bg-white rounded-lg shadow-lg z-10 w-[600px] min-w-[400px] max-w-full p-6">
+                <h2 class="text-lg font-semibold mb-4">
+                    Editar Alternativa 
+                </h2>
+
+                <form id="formEditAlternative" action="{{route('alternative.update', ['alternative' => 0] )}}" method="post"> 
+                    @csrf 
+                    @method('PUT')
+
+                    <input type="hidden" name="question_id" id="question_id-modal">
+
+                    <div class="mt-2">
+                        <x-input-label for="description" :value="__('Descrição da Alternativa:')" />
+                        <x-text-input id="alternative-modal" name="description" class="mt-1 block w-full" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                    </div>
+
+                    <div class="mt-2">
+                        <x-input-label for="correção" :value="__('Correção:')" />
+                            <select id="correct-modal" name="correct" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+                            focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600
+                            rounded-md shadow-sm" required>
+                                <option value="1">Correta</option>
+                                <option value="0">Incorreta</option>
+                            </select>
+                    </div>
+
+                    <div class="mt-4 flex justify-end gap-2">
+                        <button type="button" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-400" onclick="window.location.href='{{route('alternative.create', $aQuestion->id)}}'">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            Salvar 
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
     </div>
 </x-app-layout>

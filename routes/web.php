@@ -57,4 +57,5 @@ Route::prefix('admin/questions')->group( function () {
 Route::prefix('admin/alternatives')->group( function () {
     Route::get('/create/{question}', [AlternativeController::class , 'create'])->name('alternative.create'); 
     Route::post('/store', [AlternativeController::class, 'store'])->name('alternative.store');
+    Route::put('/update/{alternative}', [AlternativeController::class, 'update'])->name('alternative.update');
 }); 
