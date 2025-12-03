@@ -12,9 +12,17 @@ class AlternativeService
         return Alternative::all();
     }
 
-    public function create($data)
+    public function Insert($data)
     {
-       return Alternative::create($data);
+       foreach ($data['description'] as $key => $description) 
+        { 
+            Alternative::create([
+                'question_id' => $data['question_id'],
+                'description' => $description,
+                'correct' => $data['correct'][$key]
+            ]);
+       }
+       return true;
     }
 
     public function edit(Alternative $alternative)

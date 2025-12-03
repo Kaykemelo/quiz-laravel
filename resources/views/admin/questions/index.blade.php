@@ -158,7 +158,7 @@
                                         </td>
                                         <td class="p-4 border-b border-blue-gray-50">
                                             <div class="flex justify-between gap-2">
-                                            <a href="#" class=" font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                            <a href="{{ route('alternative.create', $question->id) }}" class=" font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                                 Nova Alternativa
                                             </a>
                                             <button class="btn-open-modal  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900"

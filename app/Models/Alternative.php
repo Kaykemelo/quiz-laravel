@@ -11,6 +11,8 @@ class Alternative extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['question_id', 'description','correct'];
+
     public function question() : BelongsTo
     {
         return $this->belongsTo(Question::class);

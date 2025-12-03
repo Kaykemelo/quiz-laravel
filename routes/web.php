@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlternativeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -52,3 +53,8 @@ Route::prefix('admin/questions')->group( function () {
    Route::put('/update/{question}' , [QuestionController::class, 'update'])->name('question.update');
    Route::delete('/delete/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 });
+
+Route::prefix('admin/alternatives')->group( function () {
+    Route::get('/create/{question}', [AlternativeController::class , 'create'])->name('alternative.create'); 
+    Route::post('/store', [AlternativeController::class, 'store'])->name('alternative.store');
+}); 

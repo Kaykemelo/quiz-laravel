@@ -6,6 +6,7 @@ use App\Services\AlternativeService;
 use App\Http\Requests\Alternative\CreateRequest;
 use App\Http\Requests\Alternative\UpdateRequest;
 use App\Models\Alternative;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class AlternativeController extends Controller
@@ -30,9 +31,11 @@ class AlternativeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($question)
     {
-        //return view('');
+        $aQuestion = Question::where('status', 1)->find($question);
+
+        return view('admin.alternatives.index', ['aQuestion' => $aQuestion]);
     }
 
     /**
@@ -40,12 +43,16 @@ class AlternativeController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $data = $request->validated();
-        dd($data);
+        try {
+            $data = $request->validated();
 
-        $this->service->create($data);
+            $this->service->Insert($data);
 
-        //return back()->with('succes', 'Alternativa criada com sucesso!');
+            return back()->with('success', 'Alternativa criada com sucesso.');
+        } catch (\Exception $e) {
+            
+            return back()->with('error', 'Erro ao cadastrar.');
+        }
     }
 
     /**
