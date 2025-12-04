@@ -96,9 +96,12 @@ class AlternativeController extends Controller
      */
     public function destroy(Alternative $alternative)
     {
-        dd($alternative);
-        $this->service->delete($alternative);
+        try {
+            $this->service->delete($alternative);
 
-        //return back()->with('sucess', 'Alternativa excluida com sucesso!');
+            return back()->with('success_delete', 'Alternativa excluida com sucesso.');
+        } catch (\Exception $e) {
+            return back()->with('error_delete', 'Erro ao excluir.');
+        }
     }
 }

@@ -101,6 +101,12 @@
                 </p>
             @endif
 
+            @if (session('success_delete') || session('error_delete'))
+                <p class="font-semibold  text-base {{ session('success_delete') ? 'text-green-800 dark:text-green-400' : 'text-red-800 dark:text-red-400'}} mb-4 leading-tight">
+                    {{session('success_delete') ?? session('error_delete')}}
+                </p>
+            @endif
+
         </div>
 
         <div class="flex justify-center">
@@ -146,9 +152,14 @@
                                             data-correct="{{$alternatives->correct}}">
                                                 Editar
                                         </button>
-                                        <button class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                        <form action="{{ route('alternative.destroy',                 [$alternatives->id] )}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                                 Excluir
-                                        </button>
+                                            </button>
+                                        </form>    
                                     </div>
                                 </td>
                             </tr>
