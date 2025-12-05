@@ -18,17 +18,6 @@ class AlternativeController extends Controller
 
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $alternatives = $this->service->list();
-        dd($alternatives);  
-
-        //return view('', compact('alternatives'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create($question)
@@ -37,6 +26,7 @@ class AlternativeController extends Controller
 
         return view('admin.alternatives.index', ['aQuestion' => $aQuestion]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -55,24 +45,6 @@ class AlternativeController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Alternative $alternative)
-    {
-        dd($alternative);
-        $alternative = $this->service->edit($alternative);
-
-        //return view('', compact('alternative'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -91,6 +63,7 @@ class AlternativeController extends Controller
 
     }
 
+    
     /**
      * Remove the specified resource from storage.
      */

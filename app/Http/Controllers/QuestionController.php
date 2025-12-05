@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Question\CreateRequest;
 use App\Models\Question;
-use App\Services\QuizService;
 use App\Services\QuestionService;
 use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\Question\UpdateRequest;
@@ -19,14 +18,7 @@ class QuestionController extends Controller
         protected QuestionService $service, 
     ){}
     
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-       //
-    }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -46,29 +38,14 @@ class QuestionController extends Controller
            
             $aData = $request->validated();
 
-            $this->service->store($aData);
+            $this->service->insert($aData);
             
-            return back()->with('success', 'Perguntas criadas com sucesso!');
+            return back()->with('success', 'Perguntas criadas com sucesso.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao Cadastrar');
+            return back()->with('error', 'Erro ao cadastrar.');
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Question $question)
-    {
-        //dd($question);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Question $question)
-    {
-       //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -82,7 +59,7 @@ class QuestionController extends Controller
 
             return back()->with('success_update', 'Pergunta atualizada com sucesso.');
          } catch (\Exception $e) {
-            return back()->with('error_update', 'Erro ao atualizar');
+            return back()->with('error_update', 'Erro ao atualizar.');
          }
     
     }

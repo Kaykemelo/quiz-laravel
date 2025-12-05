@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Execution\CreateRequest;
-use App\Models\Execution;
 use App\Models\Quiz;
 
 class QuizService 
@@ -13,7 +11,7 @@ class QuizService
         return Quiz::with('questions.alternatives')->find($quiz_id);
     }
 
-    public function create($data)
+    public function insert($data)
     {
         return Quiz::create($data);
     }

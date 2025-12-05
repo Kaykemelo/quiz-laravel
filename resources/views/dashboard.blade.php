@@ -16,13 +16,15 @@
                     <h2 class="font-semibold text-xl text-gray-800">Quiz Disponiveis</h2>
                 </div>
 
+                 <div class="p-6 flex items-center gap-6 mb-6">
                   @foreach ($dashboards as $dashboard )
-                     <div class="p-6 flex items-center gap-5 mb-6">
-                        <p class="font-sans font-semibold text-gray-800"> 
+                        <div class="flex flex-row gap-4 items-center">
+                        <h3 class="font-sans font-semibold text-gray-800"> 
                             {{ $dashboard->description }}
-                        </p>
+                        </h3>
                         
-                        <a href="{{route('quiz', $dashboard->id)}}" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-neutral-800 transition duration-200 ease linear">Jogar</a>
+                        <a href="{{route('quiz', $dashboard->id)}}" class="bg-gray-800 text-white  px-4 py-1 rounded hover:bg-neutral-800 transition duration-200 ease linear">Jogar</a>
+                      </div>  
                     @endforeach
                 </div>
             </div>

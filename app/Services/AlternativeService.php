@@ -6,12 +6,6 @@ use App\Models\Alternative;
 
 class AlternativeService 
 {
-
-    public function list()
-    {
-        return Alternative::all();
-    }
-
     public function Insert($data)
     {
        foreach ($data['description'] as $key => $description) 
@@ -25,10 +19,6 @@ class AlternativeService
        return true;
     }
 
-    public function edit(Alternative $alternative)
-    {
-        return Alternative::find($alternative);
-    }
     public function update(Alternative $alternative , $data)
     {
         return $alternative->update($data);

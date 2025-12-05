@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\QuizService;
-use App\Http\Requests\Execution\CreateRequest;
 use App\Http\Requests\Quiz\CreateRequest as QuizCreateRequest;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -17,7 +16,7 @@ class QuizController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( $quiz_id)
+    public function index($quiz_id)
     {
         $quiz = $this->service->list($quiz_id);
 
@@ -42,7 +41,7 @@ class QuizController extends Controller
        try {
             $data = $request->validated();
 
-            $this->service->create($data);
+            $this->service->insert($data);
 
             return back()->with('success', 'Quiz cadastrado com sucesso.');
        } catch (\Exception $e) {
@@ -52,35 +51,4 @@ class QuizController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
