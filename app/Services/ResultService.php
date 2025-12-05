@@ -10,13 +10,11 @@ class ResultService
 {
     public function list($executionid)
     {
-
-        return Question::with([
-            'alternatives.answers' => function($query) use ($executionid) {
+        return Execution::with([
+            'quiz.questions.alternatives.answers' => function($query) use ($executionid) {
                 $query->where('execution_id', $executionid);
             }
-        ])->get();
-         
+        ])->find($executionid);
     }
 
     public function createExecution($executionRequest)
@@ -25,7 +23,16 @@ class ResultService
     }
 
 
-    public function create($answers)
+    public function countAnswers($executionid)
+    {
+        return Answer::where('execution_id',$executionid)->
+               whereHas('alternative', function($query) {
+                $query->where('correct', 1);
+         })->count();
+    }
+
+
+    public function insert($answers)
     {
         
         foreach ($answers['Answer'] as $answer) {

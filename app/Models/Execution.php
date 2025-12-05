@@ -15,5 +15,10 @@ class Execution extends Model
     public function users() : BelongsTo
     {
         return $this->belongsTo(User::class);
+    } 
+    
+    public function quiz() : BelongsTo
+    {
+        return $this->belongsTo(Quiz::class);
     }
 }

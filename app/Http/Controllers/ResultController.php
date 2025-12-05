@@ -16,10 +16,14 @@ class ResultController extends Controller
 
     public function index($executionid)
     {
+        $total = $this->service->countAnswers($executionid);
         
         $questions = $this->service->list($executionid);
-
-        return view('quiz/result', ['questions' => $questions]);
+        
+        return view('quiz/result', [
+            'questions' => $questions, 
+            'total' => $total
+        ]);
     }
 
     public function store(AnswerCreateRequest $request , ExecutionCreateRequest $executionRequest)
@@ -31,7 +35,7 @@ class ResultController extends Controller
      
         $answers['execution_id'] = $this->service->createExecution($executionRequest->all())->id;
         
-        $this->service->create($answers);
+        $this->service->insert($answers);
 
 
         return redirect()->route('quiz.result.page', $answers['execution_id']);

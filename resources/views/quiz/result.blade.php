@@ -8,7 +8,14 @@
 
     <div class="py-12">
         <div class="back max-w-lg mx-auto sm:px-6 lg:px-8 bg-white rounded lg h-auto p-8 shadow">
-                @foreach ($questions as $question )
+            <div class="flex justify-center items-center mb-4">
+                <h4 class="font-medium text-base text-gray-800 dark:text-gray-200 leading-tight">
+                    Total de Acertos: {{ $total }}
+                </h4>
+
+            </div>
+
+                @foreach ($questions->quiz->questions as $question )
                     <p class="font-sans font-medium text-gray-800 text-base mb-2">
                         {{ $question->description }}
                     </p>
